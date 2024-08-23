@@ -59,7 +59,7 @@ public:
 class HumanPlayer : public Player {
 public:
 	void setChoice() {
-		cout << "Rock: 1 | Paper: 2 | Scissors: 3\nEnter your choice: ";
+		cout << "\nRock: 1 | Paper: 2 | Scissors: 3\nEnter your choice: ";
 		cin >> choice;
 	}
 };
@@ -74,12 +74,27 @@ public:
 int main(){
 	srand(time(NULL));
 	
-	RandomComputerPlayer c1 = RandomComputerPlayer();
+	string playerName, answer;
 
-	for (int i = 0; i < 5; i++) {
-		c1.setChoice();
-		cout << "Random: " << c1.getChoice() << endl;
-	}
+	cout << "\tWelcome to Rock-Paper-Scissors Game!" << endl;
+
+	RandomComputerPlayer newComputer = RandomComputerPlayer();
+	HumanPlayer newPlayer = HumanPlayer();
+
+	cout << "\nEnter your name: ";
+	cin >> playerName;
+	newPlayer.setName(playerName);
+
+	cout << "\n\tThe game has started. Good luck, " << playerName << "!" << endl;
+
+	do {
+		//newPlayer.setChoice();
+
+
+		cout << "\nDo you want to continue playing, " << playerName << "? (Yes or No) \nEnter your answer: ";
+		cin >> answer;
+
+	} while (answer != "No");
 
 	return 0;
 }
