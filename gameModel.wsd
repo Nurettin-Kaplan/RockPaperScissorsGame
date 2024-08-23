@@ -1,0 +1,41 @@
+@startuml
+title Rock Paper Scissors Game Model
+
+abstract class Player{
+    #name:string
+    #choice:int
+    #score:int
+    --
+    +getName():string
+    +getChoice():int
+    +getScore():int
+    --
+    +setName(name:string):void
+    +{abstract}setChoice():void
+    +setScore(score:int):void
+}
+
+abstract class ComputerPlayer{
+    #choice:int
+    #score:int
+    --
+    +getChoice():int
+    +getScore():int
+    --
+    +{abstract}setChoice():void
+    +setScore(score:int):void
+}
+
+class HumanPlayer{
+    +setChoice():void
+}
+
+class RandomComputerPlayer{
+    +setChoice():void
+}
+
+HumanPlayer -up-|> Player : <<extends>>
+RandomComputerPlayer -up-|> ComputerPlayer : <<extends>>
+
+hide empty members
+@enduml
