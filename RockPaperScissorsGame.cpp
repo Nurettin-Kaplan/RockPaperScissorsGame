@@ -1,5 +1,8 @@
 ﻿#include <iostream>
 #include <string>
+#include<ctime>
+#define MIN_NUM 1
+#define MAX_NUM 3
 using namespace std;
 
 class Player {
@@ -64,14 +67,19 @@ public:
 class RandomComputerPlayer : public ComputerPlayer {
 public:
 	void setChoice() {
-		//
+		this->choice = rand() % (MAX_NUM - MIN_NUM + 1) + MIN_NUM;
 	}
 };
 
 int main(){
+	srand(time(NULL));
+	
+	RandomComputerPlayer c1 = RandomComputerPlayer();
 
-
-
+	for (int i = 0; i < 5; i++) {
+		c1.setChoice();
+		cout << "Random: " << c1.getChoice() << endl;
+	}
 
 	return 0;
 }
