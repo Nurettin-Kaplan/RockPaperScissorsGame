@@ -71,10 +71,26 @@ public:
 	}
 };
 
+string ChoiceRotation(int value) {
+	
+	if (value == 1) {
+		return "Rock";
+	}
+	else if (value == 2) {
+		return "Paper";
+	}
+	else if (value == 3) {
+		return "Scissors";
+	}
+	else {
+		return "er";
+	}
+}
+
 int main(){
 	srand(time(NULL));
 	
-	string playerName, answer;
+	string playerName, answer, choice;
 
 	cout << "\tWelcome to Rock-Paper-Scissors Game!" << endl;
 
@@ -88,7 +104,13 @@ int main(){
 	cout << "\n\tThe game has started. Good luck, " << playerName << "!" << endl;
 
 	do {
-		//newPlayer.setChoice();
+		newPlayer.setChoice();
+		choice = ChoiceRotation(newPlayer.getChoice());
+		cout << "\n" << playerName << ": " << choice << endl;
+		newComputer.setChoice();
+		choice = ChoiceRotation(newComputer.getChoice());
+		cout << "Computer: " << choice << endl;
+		
 
 
 		cout << "\nDo you want to continue playing, " << playerName << "? (Yes or No) \nEnter your answer: ";
