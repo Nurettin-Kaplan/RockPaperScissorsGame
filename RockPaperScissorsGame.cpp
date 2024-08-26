@@ -25,7 +25,12 @@ public:
 	}
 
 	void setName(string name) {
-		this->name = name;
+		if (name.length() < 12) {
+			this->name = name;
+		}
+		else {
+			cout << "\nThe name you entered is longer than 12 characters. Please try again." << endl;
+		}
 	}
 
 	virtual void setChoice() = 0;
@@ -60,7 +65,7 @@ class HumanPlayer : public Player {
 public:
 	void setChoice() {
 		cout << "\nRock: 1 | Paper: 2 | Scissors: 3\nEnter your choice: ";
-		cin >> choice;
+		cin >> this->choice;
 	}
 };
 
@@ -83,7 +88,7 @@ string ChoiceRotation(int value) {
 		return "Scissors";
 	}
 	else {
-		return "er";
+		return "Invalid Entry";
 	}
 }
 
@@ -101,17 +106,20 @@ int main(){
 	cin >> playerName;
 	newPlayer.setName(playerName);
 
-	cout << "\n\tThe game has started. Good luck, " << playerName << "!" << endl;
+	cout << "\n\tThe game has started. Good luck, " << newPlayer.getName() << "!" << endl;
 
 	do {
 		newPlayer.setChoice();
 		choice = ChoiceRotation(newPlayer.getChoice());
+
 		cout << "\n" << playerName << ": " << choice << endl;
+
 		newComputer.setChoice();
 		choice = ChoiceRotation(newComputer.getChoice());
+
 		cout << "Computer: " << choice << endl;
 		
-
+		//
 
 		cout << "\nDo you want to continue playing, " << playerName << "? (Yes or No) \nEnter your answer: ";
 		cin >> answer;
