@@ -9,7 +9,7 @@ class Player {
 protected:
 	string name;
 	int choice;
-	int score;
+	int score = 0;
 
 public:
 	string getName() {
@@ -36,14 +36,14 @@ public:
 	virtual void setChoice() = 0;
 
 	void setScore(int score) {
-		this->score = score;
+		this->score += score;
 	}
 };
 
 class ComputerPlayer {
 protected:
 	int choice;
-	int score;
+	int score = 0;
 
 public:
 	int getChoice() {
@@ -57,7 +57,7 @@ public:
 	virtual void setChoice() = 0;
 
 	int setScore(int score) {
-		this->score = score;
+		this->score += score;
 	}
 };
 
@@ -92,10 +92,40 @@ string ChoiceRotation(int value) {
 	}
 }
 
+void PrintWinner(int player, int computer, HumanPlayer newPlayer) {
+	if (player == computer) {
+		cout << "\nDraw" << endl;
+	}
+	else if (player == 1 && computer == 2) {
+		cout << "\nWinner: Computer" << endl;
+		cout << "Loser: " << newPlayer.getName() << endl;
+	}
+	else if (player == 1 && computer == 3) {
+		cout << "\nWinner: " << newPlayer.getName() << endl;
+		cout << "Loser: Computer" << endl;
+	}
+	else if (player == 2 && computer == 1) {
+		cout << "\nWinner: " << newPlayer.getName() << endl;
+		cout << "Loser: Computer" << endl;
+	}
+	else if (player == 2 && computer == 3) {
+		cout << "\nWinner: Computer" << endl;
+		cout << "Loser: " << newPlayer.getName() << endl;
+	}
+	else if (player == 3 && computer == 1) {
+		cout << "\nWinner: Computer" << endl;
+		cout << "Loser: " << newPlayer.getName() << endl;
+	}
+	else if (player == 3 && computer == 2) {
+		cout << "\nWinner: " << newPlayer.getName() << endl;
+		cout << "Loser: Computer" << endl;
+	}
+}
+
 int main(){
 	srand(time(NULL));
 	
-	string playerName, answer, choice;
+	string playerName, answer, choiceTrans;
 
 	cout << "\tWelcome to Rock-Paper-Scissors Game!" << endl;
 
@@ -110,21 +140,25 @@ int main(){
 
 	do {
 		newPlayer.setChoice();
-		choice = ChoiceRotation(newPlayer.getChoice());
+		choiceTrans = ChoiceRotation(newPlayer.getChoice());
 
-		cout << "\n" << playerName << ": " << choice << endl;
+		cout << "\n" << playerName << ": " << choiceTrans << endl;
 
 		newComputer.setChoice();
-		choice = ChoiceRotation(newComputer.getChoice());
+		choiceTrans = ChoiceRotation(newComputer.getChoice());
 
-		cout << "Computer: " << choice << endl;
+		cout << "Computer: " << choiceTrans << endl;
 		
-		//
+		PrintWinner(newPlayer.getChoice(), newComputer.getChoice(), newPlayer);
+
+
+
+
 
 		cout << "\nDo you want to continue playing, " << playerName << "? (Yes or No) \nEnter your answer: ";
 		cin >> answer;
 
-	} while (answer != "No");
+	} while (answer != "No" && answer != "no" && answer != "NO" && answer != "n" && answer != "N");
 
 	return 0;
 }
