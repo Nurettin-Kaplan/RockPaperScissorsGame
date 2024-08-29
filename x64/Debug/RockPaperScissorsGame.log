@@ -1,4 +1,4 @@
 ﻿  RockPaperScissorsGame.cpp
-C:\RockPaperScissorsGame\RockPaperScissorsGame.cpp(121,12): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
-C:\RockPaperScissorsGame\RockPaperScissorsGame.cpp(118): warning C4715: 'ReturnWinner': tüm denetim yolları değer döndürmez
+C:\RockPaperScissorsGame\RockPaperScissorsGame.cpp(122,12): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
+C:\RockPaperScissorsGame\RockPaperScissorsGame.cpp(119): warning C4715: 'ReturnWinner': tüm denetim yolları değer döndürmez
   RockPaperScissorsGame.vcxproj -> C:\RockPaperScissorsGame\x64\Debug\RockPaperScissorsGame.exe

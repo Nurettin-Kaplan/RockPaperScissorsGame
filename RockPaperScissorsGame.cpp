@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include<ctime>
+#include<fstream>
 #define MIN_NUM 1
 #define MAX_NUM 3
 using namespace std;
@@ -120,8 +121,8 @@ int ReturnWinner(int player, int computer) {
 int main(){
 	srand(time(NULL));
 	
-	int winnerNumber;
-	string playerName, answer, choiceTrans, winner, loser;
+	int winnerNumber, exitAnswer, line = 1, round = 1;
+	string playerName, answer, choiceTrans, winner, loser, fileChoice;
 
 	cout << "\tWelcome to Rock-Paper-Scissors Game!" << endl;
 
@@ -134,6 +135,7 @@ int main(){
 
 	cout << "\n\tThe game has started. Good luck, " << newPlayer.getName() << "!" << endl;
 
+	ofstream printFile("PreviousMoves.txt", ios::out);
 	do {
 		newPlayer.setChoice();
 		choiceTrans = ChoiceRotation(newPlayer.getChoice());
@@ -144,7 +146,14 @@ int main(){
 		choiceTrans = ChoiceRotation(newComputer.getChoice());
 
 		cout << "Computer: " << choiceTrans << endl;
-		
+
+		if (printFile.is_open()) {
+			printFile << newPlayer.getChoice() << endl << newComputer.getChoice() << endl;
+		}
+		else {
+			perror("\nFile could not be opened.\n");
+		}
+
 		winnerNumber = ReturnWinner(newPlayer.getChoice(), newComputer.getChoice());
 		
 		switch (winnerNumber) {
@@ -170,20 +179,46 @@ int main(){
 			cout << "\nWinner: " << winner << endl;
 			cout << "Loser: " << loser << endl;
 		}
-		
-		// doWhile bloğunundan çıktığında kullanıcı toplam puanlar ekrana yazdırılsın.
-		// 
-		// "Oyun boyunca yapılan hamleler kaydedilecek ve geçmiş hamleler görüntülenebilecek." 
-		// yukarıdaki gereksinimi ya dosya işlemleri ile yada node yapısı ile yapabilirsin
-		// son gereksinimi tamamladığında proje gereksinim dosyasını açıp programı kontrol et ve bitti
 
 		cout << "\nDo you want to continue playing, " << playerName << "? (Yes or No) \nEnter your answer: ";
 		cin >> answer;
 
 	} while (answer != "No" && answer != "no" && answer != "NO" && answer != "n" && answer != "N");
+	
+	printFile.close();
 
-	cout << "\n" << newPlayer.getName() <<  "'s Total Score : " << newPlayer.getScore() << endl;
+	cout << "\n" << newPlayer.getName() <<  "'s Total Score: " << newPlayer.getScore() << endl;
 	cout << "Computer's Total Score: " << newComputer.getScore() << endl;
+
+	cout << "\nTo list previous moves : 1 | To exit the game: 0\nEnter your choice: ";
+	cin >> exitAnswer;
+
+	if (exitAnswer == 1) {
+		ifstream readFile("PreviousMoves.txt", ios::in);
+
+		if (readFile.is_open()) {
+			cout << "\n--------------------------------------------";
+			while (getline(readFile, fileChoice)) {
+				choiceTrans = ChoiceRotation(stoi(fileChoice));
+				
+				if (line % 2 != 0) {
+					cout << "\nRound " << round << endl;
+					cout << "\n" << newPlayer.getName() << ": " << choiceTrans << endl;
+					round++;
+				}
+				else {
+					cout << "Computer" << ": " << choiceTrans << endl;
+					cout << "\n--------------------------------------------";
+				}
+
+				line++;
+			}
+		}
+		else {
+			perror("\nFile could not be opened.\n");
+		}
+		readFile.close();
+	}
 
 	return 0;
 }
