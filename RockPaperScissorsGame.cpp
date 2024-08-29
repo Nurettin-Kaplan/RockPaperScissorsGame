@@ -92,39 +92,35 @@ string ChoiceRotation(int value) {
 	}
 }
 
-void PrintWinner(int player, int computer, HumanPlayer newPlayer) {
-	if (player == computer) {
-		cout << "\nDraw" << endl;
+int ReturnWinner(int player, int computer) {
+
+	if (player == computer) {	// draw = 0
+		return 0;
 	}
-	else if (player == 1 && computer == 2) {
-		cout << "\nWinner: Computer" << endl;
-		cout << "Loser: " << newPlayer.getName() << endl;
+	else if (player == 1 && computer == 2) { // winner = computer = 1
+		return 1;
 	}
-	else if (player == 1 && computer == 3) {
-		cout << "\nWinner: " << newPlayer.getName() << endl;
-		cout << "Loser: Computer" << endl;
+	else if (player == 1 && computer == 3) { // winner = player = 2
+		return 2;
 	}
 	else if (player == 2 && computer == 1) {
-		cout << "\nWinner: " << newPlayer.getName() << endl;
-		cout << "Loser: Computer" << endl;
+		return 2;
 	}
 	else if (player == 2 && computer == 3) {
-		cout << "\nWinner: Computer" << endl;
-		cout << "Loser: " << newPlayer.getName() << endl;
+		return 1;
 	}
 	else if (player == 3 && computer == 1) {
-		cout << "\nWinner: Computer" << endl;
-		cout << "Loser: " << newPlayer.getName() << endl;
+		return 1;
 	}
 	else if (player == 3 && computer == 2) {
-		cout << "\nWinner: " << newPlayer.getName() << endl;
-		cout << "Loser: Computer" << endl;
+		return 2;
 	}
 }
 
 int main(){
 	srand(time(NULL));
 	
+	int winnerNumber;
 	string playerName, answer, choiceTrans;
 
 	cout << "\tWelcome to Rock-Paper-Scissors Game!" << endl;
@@ -149,11 +145,26 @@ int main(){
 
 		cout << "Computer: " << choiceTrans << endl;
 		
-		PrintWinner(newPlayer.getChoice(), newComputer.getChoice(), newPlayer);
+		winnerNumber = ReturnWinner(newPlayer.getChoice(), newComputer.getChoice());
+		
+		cout << "Winner Number: " << winnerNumber << endl;
+
+
+
+		
 
 
 
 
+
+		// printwinner fonksiyonunu dowhile bloğunun içinde winner loser yazıp kodu kısaltmaya çalış önce
+		// printwinner fonksiyonu kazananı return etmesi sağlanmalı bir şekilde..
+		// ScoreCalculate ile kazananın skoru güncellenmesii yapılmalı 
+		// doWhile bloğunundan çıktığında kullanıcı toplam puanlar ekrana yazdırılsın.
+		// 
+		// "Oyun boyunca yapılan hamleler kaydedilecek ve geçmiş hamleler görüntülenebilecek." 
+		// yukarıdaki gereksinimi ya dosya işlemleri ile yada node yapısı ile yapabilirsin
+		// son gereksinimi tamamladığında proje gereksinim dosyasını açıp programı kontrol et ve bitti
 
 		cout << "\nDo you want to continue playing, " << playerName << "? (Yes or No) \nEnter your answer: ";
 		cin >> answer;
