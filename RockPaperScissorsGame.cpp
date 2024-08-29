@@ -56,7 +56,7 @@ public:
 
 	virtual void setChoice() = 0;
 
-	int setScore(int score) {
+	void setScore(int score) {
 		this->score += score;
 	}
 };
@@ -121,7 +121,7 @@ int main(){
 	srand(time(NULL));
 	
 	int winnerNumber;
-	string playerName, answer, choiceTrans;
+	string playerName, answer, choiceTrans, winner, loser;
 
 	cout << "\tWelcome to Rock-Paper-Scissors Game!" << endl;
 
@@ -147,19 +147,30 @@ int main(){
 		
 		winnerNumber = ReturnWinner(newPlayer.getChoice(), newComputer.getChoice());
 		
-		cout << "Winner Number: " << winnerNumber << endl;
-
-
-
+		switch (winnerNumber) {
+			case 0:
+				cout << "\nDraw" << endl;
+				break;
+			case 1:
+				winner = "Computer";
+				loser = newPlayer.getName();
+				newComputer.setScore(10);
+				break;
+			case 2:
+				winner = newPlayer.getName();
+				loser = "Computer";
+				newPlayer.setScore(10);
+				break;
+			default:
+				cout << "\nAn error occurred while determining the winner." << endl;
+				break;
+		}
 		
-
-
-
-
-
-		// printwinner fonksiyonunu dowhile bloğunun içinde winner loser yazıp kodu kısaltmaya çalış önce
-		// printwinner fonksiyonu kazananı return etmesi sağlanmalı bir şekilde..
-		// ScoreCalculate ile kazananın skoru güncellenmesii yapılmalı 
+		if (winnerNumber == 1 || winnerNumber == 2) {
+			cout << "\nWinner: " << winner << endl;
+			cout << "Loser: " << loser << endl;
+		}
+		
 		// doWhile bloğunundan çıktığında kullanıcı toplam puanlar ekrana yazdırılsın.
 		// 
 		// "Oyun boyunca yapılan hamleler kaydedilecek ve geçmiş hamleler görüntülenebilecek." 
@@ -170,6 +181,9 @@ int main(){
 		cin >> answer;
 
 	} while (answer != "No" && answer != "no" && answer != "NO" && answer != "n" && answer != "N");
+
+	cout << "\n" << newPlayer.getName() <<  "'s Total Score : " << newPlayer.getScore() << endl;
+	cout << "Computer's Total Score: " << newComputer.getScore() << endl;
 
 	return 0;
 }
